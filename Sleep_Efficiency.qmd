@@ -1,0 +1,16 @@
+---
+title: "Sleep"
+author: "Zihao Yu"
+format: html
+editor: visual
+---
+
+# Approach
+
+## Sleep efficiency dataset
+
+I've chosen this dataset because a lot of people stay up late. By looking at the data, it records the time spent in each sleep stage, so then I want to see how different factors(caffeine, alcohol consumption, smoking status, and exercise) affect sleep quality.
+
+## Compare the effects of various factors on sleep states
+
+Sleep dataset: https://raw.githubusercontent.com/XxY-coder/data607-week1/refs/heads/main/Sleep_Efficiency.csv
