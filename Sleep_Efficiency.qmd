@@ -14,3 +14,74 @@ I've chosen this dataset because a lot of people stay up late. By looking at the
 ## Compare the effects of various factors on sleep states
 
 Sleep dataset: https://raw.githubusercontent.com/XxY-coder/data607-week1/refs/heads/main/Sleep_Efficiency.csv
+
+#view the columns and delete some columns.
+
+```{r}
+library(tidyverse)
+library(gt)
+
+url <- "https://raw.githubusercontent.com/XxY-coder/data607-week1/refs/heads/main/Sleep_Efficiency.csv"
+df <- read_csv(
+  file = url
+)
+
+glimpse(df)
+```
+
+##Cleaning the data
+Caffeine, alcohol, smoking, and exercise are more straight forward, then rename them for convenient.
+check and remove the NA values.
+
+
+```{r}
+df2 <-
+  df |>
+  select(
+    Age,
+    Gender,
+    sleep_time = 'Sleep duration',
+    caffeine_intake = 'Caffeine consumption',
+    alcohol_intake  = 'Alcohol consumption',
+    smoking_status  = 'Smoking status' ,
+    exercise_freq   = 'Exercise frequency'
+) |>
+  filter(
+    !is.na(caffeine_intake),
+    !is.na(alcohol_intake),
+    !is.na(smoking_status),
+    !is.na(exercise_freq)
+  )
+
+glimpse(df)
+```
+
+####Check for relevance
+Then compare how each factors effact to the sleep time. 
+```{r}
+ggplot(df2, aes(Age, sleep_time)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(se = FALSE) +
+  labs(title = "sleep_time vs Age", x = "Age", y = "sleep_time")
+
+ggplot(df2, aes(caffeine_intake, sleep_time)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm" ) +
+  labs(title = "sleep_time vs Caffeine", x = "caffeine_intake", y = "sleep_time")
+
+ggplot(df2, aes(alcohol_intake, sleep_time)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm" ) +
+  labs(title = "sleep_time vs alcohol_intake", x = "alcohol_intake", y = "sleep_time")
+
+ggplot(df2, aes(factor(exercise_freq), sleep_time, fill = exercise_freq)) +
+  geom_boxplot() +
+  labs(title = "sleep_time vs exercise_freq", x = "exercise_freq", y = "sleep_time")
+df2 |>
+  count(exercise_freq)
+```
+
+#####Conclusions
+Four sets of comparisons reveal that overall correlations between age, caffeine intake, smoking status, and sleep duration are relatively weak.
+The scatter plot shows no discernible trend, with only slight variations in data distribution. 
+Box plots for exercise frequency indicate similar ranges across groups, with most sleep durations concentrated within the 7–8 hour range.
