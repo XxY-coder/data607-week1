@@ -1,2 +1,2 @@
-# data607-week1
+# data607
 Assigiment1
